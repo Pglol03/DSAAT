@@ -98,6 +98,7 @@ void run_turing_machine(TuringMachine *tm, char *input)
 
 int main()
 {
+    char temp;
     TuringMachine tm;
     printf("Enter number of states : \n");
     scanf("%d", &tm.num_states);
@@ -113,105 +114,105 @@ int main()
     for (int i = 0; i < tm.num_symbols; i++)
     {
         printf("Enter the '%d' symbol : \n", i + 1);
-        scanf("%d", &tm.tape_alphabet[i]);
+        scanf(" %c", &temp);
+        // temp = getchar();
+        tm.tape_alphabet[i] = (int)temp;
     }
 
-    for (int i = 0; i < (tm.num_states * 2); i++)
+    for (int i = 0; i < (tm.num_states * tm.num_symbols); i++)
     {
         printf("Enter 'current state' for transition %d : \n", i);
         scanf("%d", &tm.transitions[i].current_state);
         printf("Enter 'current symbol' for transition %d : \n", i);
-        scanf("%d", &tm.transitions[i].current_symbol);
+        scanf(" %c", &temp);
+        // temp = getchar();
+        tm.transitions[i].current_symbol = (int)temp;
         printf("Enter 'next state' for transition %d : \n", i);
         scanf("%d", &tm.transitions[i].next_state);
         printf("Enter 'next symbol' for transition %d : \n", i);
-        scanf("%d", &tm.transitions[i].next_symbol);
+        scanf(" %c", &temp);
+        // temp = getchar();
+        tm.transitions[i].next_symbol = (int)temp;
         printf("Enter 'direction' for transition %d : \n", i);
-        scanf("%d", &tm.transitions[i].current_state);
+        scanf("%d", &tm.transitions[i].direction);
         printf("\n\n");
     }
-    // // initialize tm with transitions for a simple two-state, one-symbol machine
-    // tm.num_states = 2;
-    // tm.start_state = 1;
-    // tm.accept_state = 2;
-    // tm.reject_state = 0;
-    // tm.num_symbols = 1;
-    // tm.tape_alphabet[0] = '0';
 
-    // // transition 1: (1, '0') -> (2, '0', R)
-    // tm.transitions[0].current_state = 1;
-    // tm.transitions[0].current_symbol = '0';
-    // tm.transitions[0].next_state = 2;
-    // tm.transitions[0].next_symbol = '0';
-    // tm.transitions[0].direction = 1;
+    
+//     // Even Length Program
+//     // initialize tm with transitions
+//     tm.num_states = 2;
+//     tm.start_state = 1;
+//     tm.accept_state = 3;
+//     tm.reject_state = 0;
+//     tm.num_symbols = 3;
+//     tm.tape_alphabet[0] = '0';
+//     tm.tape_alphabet[1] = '1';
+//     tm.tape_alphabet[2] = 'B';
+//     // ##########################################
+//     // Transition 1: (1, '0') -> (2, '0', R)
+//     tm.transitions[0].current_state = 1;
+//     tm.transitions[0].current_symbol = '0';
+//     tm.transitions[0].next_state = 2;
+//     tm.transitions[0].next_symbol = '0';
+//     tm.transitions[0].direction = 1;
 
-    // // run the machine with input "00000"
-    // run_turing_machine(&tm, "111");
+//      //Transition 2: (1, '1') -> (2, '1', R)
+//     tm.transitions[1].current_state = 2;
+//     tm.transitions[1].current_symbol = '0';
+//     tm.transitions[1].next_state = 1;
+//     tm.transitions[1].next_symbol = '0';
+//     tm.transitions[1].direction = 1;
 
-    // initialize tm with transitions for a simple two-state, one-symbol machine
-    // tm.num_states = 4;
-    // tm.start_state = 1;
-    // tm.accept_state = 4;
-    // tm.reject_state = 0;
-    // tm.num_symbols = 2;
-    // tm.tape_alphabet[0] = '0';
-    // tm.tape_alphabet[1] = '1';
+//      //Transition 3: (2, '0') -> (1, '0', L)
+//     tm.transitions[2].current_state = 1;
+//     tm.transitions[2].current_symbol = '1';
+//     tm.transitions[2].next_state = 1;
+//     tm.transitions[2].next_symbol = '1';
+//     tm.transitions[2].direction = 1;
 
-    // // transition 1: (1, '1') -> (2, '1', R)
-    // tm.transitions[0].current_state = 1;
-    // tm.transitions[0].current_symbol = '1';
-    // tm.transitions[0].next_state = 2;
-    // tm.transitions[0].next_symbol = '1';
-    // tm.transitions[0].direction = 1;
+//      //Transition 4: (2, '1') -> (2, '1', l)
+//     tm.transitions[3].current_state = 2;
+//     tm.transitions[3].current_symbol = '1';
+//     tm.transitions[3].next_state = 2;
+//     tm.transitions[3].next_symbol = '1';
+//     tm.transitions[3].direction = 1;
 
-    // // transition 2: (2, '1') -> (2, '1', R)
-    // tm.transitions[1].current_state = 2;
-    // tm.transitions[1].current_symbol = '1';
-    // tm.transitions[1].next_state = 2;
-    // tm.transitions[1].next_symbol = '1';
-    // tm.transitions[1].direction = 1;
+// // transition 5: (1, B) -> (4, B, N)
+// tm.transitions[4].current_state = 1;
+// tm.transitions[4].current_symbol = 'B';
+// tm.transitions[4].next_state = 3;
+// tm.transitions[4].next_symbol = 'B';
+// tm.transitions[4].direction = 0;
 
-    // // transition 3: (2, '0') -> (3, '0', L)
-    // tm.transitions[2].current_state = 2;
-    // tm.transitions[2].current_symbol = '0';
-    // tm.transitions[2].next_state = 3;
-    // tm.transitions[2].next_symbol = '0';
-    // tm.transitions[2].direction = -1;
+// // transition 6: (2, B) -> (0, B, N)
+// tm.transitions[5].current_state = 2;
+// tm.transitions[5].current_symbol = 'B';
+// tm.transitions[5].next_state = 0;
+// tm.transitions[5].next_symbol = 'B';
+// tm.transitions[5].direction = 0;
 
-    // // transition 4: (3, '1') -> (4, '1', R)
-    // tm.transitions[3].current_state = 3;
-    // tm.transitions[3].current_symbol = '1';
-    // tm.transitions[3].next_state = 4;
-    // tm.transitions[3].next_symbol = '1';
-    // tm.transitions[3].direction = 1;
-
-    // // transition 5: (3, '0') -> (3, '0', L)
-    // tm.transitions[4].current_state = 3;
-    // tm.transitions[4].current_symbol = '0';
-    // tm.transitions[4].next_state = 3;
-    // tm.transitions[4].next_symbol = '0';
-    // tm.transitions[4].direction = -1;
-
-    // // transition 6: (4, '0') -> (4, '0', R)
-    // tm.transitions[5].current_state = 4;
-    // tm.transitions[5].current_symbol = '0';
-    // tm.transitions[5].next_state = 4;
-    // tm.transitions[5].next_symbol = '0';
-    // tm.transitions[5].direction = 1;
-
-    // // transition 7: (4, '1') -> (4, '1', R)
-    // tm.transitions[6].current_state = 4;
-    // tm.transitions[6].current_symbol = '1';
-    // tm.transitions[6].next_state = 4;
-    // tm.transitions[6].next_symbol = '1';
-    // tm.transitions[6].direction = 1;
 
     char input[MAX_TAPE_SIZE];
-
-    printf("Enter input: ");
-    scanf("%s", input);
-
-    run_turing_machine(&tm, input);
-
+    int x = 1;
+    while (x)
+    {
+        printf("enter 1 to continue or 2 to exit :");
+        int choice;
+        scanf("%d", &choice);
+        switch (choice)
+        {
+        case 1:
+            printf("Enter input: ");
+            scanf("%s", input);
+            run_turing_machine(&tm, input);
+            break;
+        case 2:
+            x = 0;
+            break;
+        default:
+            break;
+        }
+    }
     return 0;
 }
