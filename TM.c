@@ -101,7 +101,7 @@ int main() {
     tm.transitions[0].direction = 1;
 
     // run the machine with input "00000"
-    run_turing_machine(&tm, "00000");
+    run_turing_machine(&tm, "111");
 
     return 0;
 }
