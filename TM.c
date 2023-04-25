@@ -7,6 +7,10 @@
 #define MAX_NUM_SYMBOLS 10
 #define MAX_NUM_TRANSITIONS 1000
 
+char inputtape[1000];
+FILE *filePointer;
+int pointer = 0;
+
 typedef struct
 {
     int current_state;
@@ -96,47 +100,160 @@ void run_turing_machine(TuringMachine *tm, char *input)
     }
 }
 
+int chartoint(char ch)
+{
+    return (ch - '0');
+}
+
 int main()
 {
     char temp;
     TuringMachine tm;
-    printf("Enter number of states : \n");
-    scanf("%d", &tm.num_states);
-    printf("Enter Start State : \n");
-    scanf("%d", &tm.start_state);
-    printf("Enter Accept State : \n");
-    scanf("%d", &tm.accept_state);
-    printf("Enter Reject State : \n");
-    scanf("%d", &tm.reject_state);
-    printf("Enter number of symbols : \n");
-    scanf("%d", &tm.num_symbols);
+    char Fname[200] ="";
+    printf("Do You want to Load a file or create a new one for 'Turing Machine' ? \n");
+    printf("1 : 'Load File' \n");
+    printf("2 : 'Make New File' \n");
+    int menu;
+        scanf("%d", &menu);
+        switch (menu)
+        {
+        case 1:
+            printf("Enter File Name : \n");
+            
+            scanf("%s", Fname);
+            filePointer = fopen(Fname,"r");
+            if(filePointer == NULL){
+                printf("\n\"%s\" File NOT FOUND!",Fname);
+		        exit(1);
+            }
+            fscanf(filePointer, "%s", &inputtape);
+            printf("The input tape is - %s", inputtape);
+            tm.num_states = chartoint(inputtape[pointer++]);
+            tm.start_state = chartoint(inputtape[pointer++]);
+            tm.accept_state = chartoint(inputtape[pointer++]);
+            tm.reject_state = chartoint(inputtape[pointer++]);
+            tm.num_symbols = chartoint(inputtape[pointer++]);
+            for (int i = 0; i < tm.num_symbols; i++){
+                temp = inputtape[pointer++];
+                tm.tape_alphabet[i] = (int)temp;
+            }
+            for (int i = 0; i < (tm.num_states * tm.num_symbols); i++){
+                tm.transitions[i].current_state = chartoint(inputtape[pointer++]);
+                temp = inputtape[pointer++];
 
-    for (int i = 0; i < tm.num_symbols; i++)
-    {
-        printf("Enter the '%d' symbol : \n", i + 1);
-        scanf(" %c", &temp);
-        // temp = getchar();
-        tm.tape_alphabet[i] = (int)temp;
-    }
+                tm.transitions[i].current_symbol = (int)temp;
 
-    for (int i = 0; i < (tm.num_states * tm.num_symbols); i++)
-    {
-        printf("Enter 'current state' for transition %d : \n", i);
-        scanf("%d", &tm.transitions[i].current_state);
-        printf("Enter 'current symbol' for transition %d : \n", i);
-        scanf(" %c", &temp);
-        // temp = getchar();
-        tm.transitions[i].current_symbol = (int)temp;
-        printf("Enter 'next state' for transition %d : \n", i);
-        scanf("%d", &tm.transitions[i].next_state);
-        printf("Enter 'next symbol' for transition %d : \n", i);
-        scanf(" %c", &temp);
-        // temp = getchar();
-        tm.transitions[i].next_symbol = (int)temp;
-        printf("Enter 'direction' for transition %d : \n", i);
-        scanf("%d", &tm.transitions[i].direction);
-        printf("\n\n");
-    }
+                tm.transitions[i].next_state = chartoint(inputtape[pointer++]);
+
+                temp = inputtape[pointer++];
+
+                tm.transitions[i].next_symbol = (int)temp;
+
+                tm.transitions[i].direction = chartoint(inputtape[pointer++]);
+
+            }
+            printf("\nDo you want to run the default condition or define ur own?\n");
+            printf("0 : Run Default\n");
+            printf("1 : User Defind\n");
+            int uchoice;
+            scanf("%d",&uchoice);
+            if(uchoice) break;
+            char dinput[MAX_TAPE_SIZE];
+            int dx = 1;
+            while(dx){
+                int dchoice;
+                dchoice = chartoint(inputtape[pointer++]);
+                // printf("\nChoice Entered: %d\n", choice);
+                int dlocalpointer = 0;
+                switch (dchoice)
+                {
+                case 1:
+                    // printf("Enter input: ");
+
+                    // fscanf(filePointer, "%s", input);
+
+                    while (inputtape[pointer] != 'B')
+                    {
+                        dinput[dlocalpointer++] = inputtape[pointer++];
+                    }
+
+                    dinput[dlocalpointer++] = inputtape[pointer++];
+                    // printf("\n Input is - ");
+                    // puts(input);
+                    run_turing_machine(&tm, dinput);
+                    exit(0);
+                    break;
+                case 2:
+                    dx = 0;
+                    break;
+                default:
+                    break;
+                }
+            }
+            break;
+
+        case 2:
+            printf("Enter File Name : \n");
+            scanf("%s", Fname);
+            filePointer = fopen(Fname,"w");
+            if(filePointer == NULL){
+                printf("\n%s\" File NOT FOUND!",Fname);
+		        exit(1);
+            }
+            printf("\nEnter number of states : \n");
+            scanf("%d", &tm.num_states);
+            temp = tm.num_states+'0';
+            fputs(&temp, filePointer) ;
+            printf("Enter Start State : \n");
+            scanf("%d", &tm.start_state);
+            temp = tm.start_state+'0';
+            fputs(&temp, filePointer) ;
+            printf("Enter Accept State : \n");
+            scanf("%d", &tm.accept_state);
+            temp = tm.accept_state+'0';
+            fputs(&temp, filePointer) ;
+            printf("Enter Reject State : \n");
+            scanf("%d", &tm.reject_state);
+            temp = tm.reject_state+'0';
+            fputs(&temp, filePointer) ;
+            printf("Enter number of symbols : \n\n");
+            scanf("%d", &tm.num_symbols);
+            temp = tm.num_symbols+'0';
+            fputs(&temp, filePointer) ;
+
+            for (int i = 0; i < tm.num_symbols; i++)
+            {
+                printf("Enter the '%d' symbol : \n", i + 1);
+                scanf(" %c", &temp);
+                // temp = getchar();
+                tm.tape_alphabet[i] = (int)temp;
+                scanf("%d", &tm.num_symbols);
+            }
+
+            for (int i = 0; i < (tm.num_states * tm.num_symbols); i++)
+            {
+                printf("Enter 'current state' for transition %d : \n", i);
+                scanf("%d", &tm.transitions[i].current_state);
+                printf("Enter 'current symbol' for transition %d : \n", i);
+                scanf(" %c", &temp);
+                // temp = getchar();
+                tm.transitions[i].current_symbol = (int)temp;
+                printf("Enter 'next state' for transition %d : \n", i);
+                scanf("%d", &tm.transitions[i].next_state);
+                printf("Enter 'next symbol' for transition %d : \n", i);
+                scanf(" %c", &temp);
+                // temp = getchar();
+                tm.transitions[i].next_symbol = (int)temp;
+                printf("Enter 'direction' for transition %d : \n", i);
+                scanf("%d", &tm.transitions[i].direction);
+                printf("\n\n");
+            }
+            break;
+        default:
+            break;
+        }
+
+    
 
     
 //     // Even Length Program
