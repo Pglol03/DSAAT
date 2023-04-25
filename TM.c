@@ -231,7 +231,7 @@ int main()
                 fputs(&temp, filePointer) ;
                 //scanf("%d", &tm.num_symbols);
             }
-
+            printf("\n\n");
             for (int i = 0; i < (tm.num_states * tm.num_symbols); i++)
             {
                 printf("Enter 'current state' for transition %d : \n", i);
@@ -262,6 +262,10 @@ int main()
                 fputs(&temp, filePointer) ;
                 printf("\n\n");
             }
+            char tempinpt[MAX_TAPE_SIZE];
+            printf("Enter a Default Input value :\n");
+            scanf("%s", &tempinpt);
+            fputs(&tempinpt, filePointer) ;
             break;
         default:
             break;
