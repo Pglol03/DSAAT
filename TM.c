@@ -202,22 +202,23 @@ int main()
             }
             printf("\nEnter number of states : \n");
             scanf("%d", &tm.num_states);
-            temp = tm.num_states+'0';
-            fputs(&temp, filePointer) ;
             printf("Enter Start State : \n");
             scanf("%d", &tm.start_state);
-            temp = tm.start_state+'0';
-            fputs(&temp, filePointer) ;
             printf("Enter Accept State : \n");
             scanf("%d", &tm.accept_state);
-            temp = tm.accept_state+'0';
-            fputs(&temp, filePointer) ;
             printf("Enter Reject State : \n");
             scanf("%d", &tm.reject_state);
+            printf("Enter number of symbols : \n");
+            scanf("%d", &tm.num_symbols);
+            fputs(&temp, filePointer) ;
+            temp = tm.num_states+'0';
+            fputs(&temp, filePointer) ;
+            temp = tm.start_state+'0';
+            fputs(&temp, filePointer) ;
+            temp = tm.accept_state+'0';
+            fputs(&temp, filePointer) ;
             temp = tm.reject_state+'0';
             fputs(&temp, filePointer) ;
-            printf("Enter number of symbols : \n\n");
-            scanf("%d", &tm.num_symbols);
             temp = tm.num_symbols+'0';
             fputs(&temp, filePointer) ;
 
@@ -227,25 +228,38 @@ int main()
                 scanf(" %c", &temp);
                 // temp = getchar();
                 tm.tape_alphabet[i] = (int)temp;
-                scanf("%d", &tm.num_symbols);
+                fputs(&temp, filePointer) ;
+                //scanf("%d", &tm.num_symbols);
             }
 
             for (int i = 0; i < (tm.num_states * tm.num_symbols); i++)
             {
                 printf("Enter 'current state' for transition %d : \n", i);
                 scanf("%d", &tm.transitions[i].current_state);
+                temp = tm.transitions[i].current_state+'0';
+                fputs(&temp, filePointer) ;
+
                 printf("Enter 'current symbol' for transition %d : \n", i);
                 scanf(" %c", &temp);
                 // temp = getchar();
                 tm.transitions[i].current_symbol = (int)temp;
+                fputs(&temp, filePointer) ;
+
                 printf("Enter 'next state' for transition %d : \n", i);
                 scanf("%d", &tm.transitions[i].next_state);
+                temp = tm.transitions[i].next_state+'0';
+                fputs(&temp, filePointer) ;
+
                 printf("Enter 'next symbol' for transition %d : \n", i);
                 scanf(" %c", &temp);
                 // temp = getchar();
                 tm.transitions[i].next_symbol = (int)temp;
+                fputs(&temp, filePointer) ;
+
                 printf("Enter 'direction' for transition %d : \n", i);
                 scanf("%d", &tm.transitions[i].direction);
+                temp = tm.transitions[i].direction+'0';
+                fputs(&temp, filePointer) ;
                 printf("\n\n");
             }
             break;
