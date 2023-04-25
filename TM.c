@@ -1,3 +1,10 @@
+
+// ▀▀█▀▀ █░░█ █▀▀█ ░▀░ █▀▀▄ █▀▀▀ 　 ▒█▀▄▀█ █▀▀█ █▀▀ █░░█ ░▀░ █▀▀▄ █▀▀ 
+// ░▒█░░ █░░█ █▄▄▀ ▀█▀ █░░█ █░▀█ 　 ▒█▒█▒█ █▄▄█ █░░ █▀▀█ ▀█▀ █░░█ █▀▀ 
+// ░▒█░░ ░▀▀▀ ▀░▀▀ ▀▀▀ ▀░░▀ ▀▀▀▀ 　 ▒█░░▒█ ▀░░▀ ▀▀▀ ▀░░▀ ▀▀▀ ▀░░▀ ▀▀▀
+
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -107,6 +114,9 @@ int chartoint(char ch)
 
 int main()
 {
+    printf(" ▀▀█▀▀ █░░█ █▀▀█ ░▀░ █▀▀▄ █▀▀▀ 　 ▒█▀▄▀█ █▀▀█ █▀▀ █░░█ ░▀░ █▀▀▄ █▀▀ \n");
+    printf(" ░▒█░░ █░░█ █▄▄▀ ▀█▀ █░░█ █░▀█ 　 ▒█▒█▒█ █▄▄█ █░░ █▀▀█ ▀█▀ █░░█ █▀▀ \n");
+    printf(" ░▒█░░ ░▀▀▀ ▀░▀▀ ▀▀▀ ▀░░▀ ▀▀▀▀ 　 ▒█░░▒█ ▀░░▀ ▀▀▀ ▀░░▀ ▀▀▀ ▀░░▀ ▀▀▀\n\n");
     char temp;
     TuringMachine tm;
     char Fname[200] ="";
@@ -127,7 +137,8 @@ int main()
 		        exit(1);
             }
             fscanf(filePointer, "%s", &inputtape);
-            printf("The input tape is - %s", inputtape);
+            printf("\n\nFILE FOUND!");
+            printf("\nThe input tape is - %s\n", inputtape);
             tm.num_states = chartoint(inputtape[pointer++]);
             tm.start_state = chartoint(inputtape[pointer++]);
             tm.accept_state = chartoint(inputtape[pointer++]);
@@ -154,13 +165,14 @@ int main()
             }
             printf("\nDo you want to run the default condition or define ur own?\n");
             printf("0 : Run Default\n");
-            printf("1 : User Defind\n");
+            printf("1 : User Defined\n");
             int uchoice;
             scanf("%d",&uchoice);
             if(uchoice) break;
             char dinput[MAX_TAPE_SIZE];
             int dx = 1;
             while(dx){
+                printf("\nOUTPUT : ");
                 int dchoice;
                 dchoice = chartoint(inputtape[pointer++]);
                 // printf("\nChoice Entered: %d\n", choice);
@@ -181,6 +193,14 @@ int main()
                     // printf("\n Input is - ");
                     // puts(input);
                     run_turing_machine(&tm, dinput);
+                    printf("\n\n ╔════╦╗───────╔╗──╔╗──╔╗─────╔═══╗─────╔╗─╔╗──────────╔═══╗─────╔═══╗\n");
+                    printf(" ║╔╗╔╗║║───────║║──║╚╗╔╝║─────║╔══╝─────║║─║║──────────║╔═╗║─────║╔═╗║\n");
+                    printf(" ╚╝║║╚╣╚═╦══╦═╗║║╔╗╚╗╚╝╔╩═╦╗╔╗║╚══╦══╦═╗║║─║╠══╦╦═╗╔══╗║║─║╠╗╔╦═╗║╚═╝╠═╦══╦══╦═╦══╦╗╔╗\n");
+                    printf(" ──║║─║╔╗║╔╗║╔╗╣╚╝╝─╚╗╔╣╔╗║║║║║╔══╣╔╗║╔╝║║─║║══╬╣╔╗╣╔╗║║║─║║║║║╔╝║╔══╣╔╣╔╗║╔╗║╔╣╔╗║╚╝║\n");
+                    printf(" ──║║─║║║║╔╗║║║║╔╗╗──║║║╚╝║╚╝║║║──║╚╝║║─║╚═╝╠══║║║║║╚╝║║╚═╝║╚╝║║─║║──║║║╚╝║╚╝║║║╔╗║║║║\n");
+                    printf(" ──╚╝─╚╝╚╩╝╚╩╝╚╩╝╚╝──╚╝╚══╩══╝╚╝──╚══╩╝─╚═══╩══╩╩╝╚╩═╗║╚═══╩══╩╝─╚╝──╚╝╚══╩═╗╠╝╚╝╚╩╩╩╝\n");
+                    printf(" ──────────────────────────────────────────────────╔═╝║───────────────────╔═╝║\n");
+                    printf(" ──────────────────────────────────────────────────╚══╝───────────────────╚══╝\n");
                     exit(0);
                     break;
                 case 2:
@@ -332,7 +352,7 @@ int main()
     int x = 1;
     while (x)
     {
-        printf("enter 1 to continue or 2 to exit :");
+        printf("\nenter 1 to continue or 2 to exit :");
         int choice;
         scanf("%d", &choice);
         switch (choice)
@@ -349,5 +369,13 @@ int main()
             break;
         }
     }
+    printf("\n\n ╔════╦╗───────╔╗──╔╗──╔╗─────╔═══╗─────╔╗─╔╗──────────╔═══╗─────╔═══╗\n");
+    printf(" ║╔╗╔╗║║───────║║──║╚╗╔╝║─────║╔══╝─────║║─║║──────────║╔═╗║─────║╔═╗║\n");
+    printf(" ╚╝║║╚╣╚═╦══╦═╗║║╔╗╚╗╚╝╔╩═╦╗╔╗║╚══╦══╦═╗║║─║╠══╦╦═╗╔══╗║║─║╠╗╔╦═╗║╚═╝╠═╦══╦══╦═╦══╦╗╔╗\n");
+    printf(" ──║║─║╔╗║╔╗║╔╗╣╚╝╝─╚╗╔╣╔╗║║║║║╔══╣╔╗║╔╝║║─║║══╬╣╔╗╣╔╗║║║─║║║║║╔╝║╔══╣╔╣╔╗║╔╗║╔╣╔╗║╚╝║\n");
+    printf(" ──║║─║║║║╔╗║║║║╔╗╗──║║║╚╝║╚╝║║║──║╚╝║║─║╚═╝╠══║║║║║╚╝║║╚═╝║╚╝║║─║║──║║║╚╝║╚╝║║║╔╗║║║║\n");
+    printf(" ──╚╝─╚╝╚╩╝╚╩╝╚╩╝╚╝──╚╝╚══╩══╝╚╝──╚══╩╝─╚═══╩══╩╩╝╚╩═╗║╚═══╩══╩╝─╚╝──╚╝╚══╩═╗╠╝╚╝╚╩╩╩╝\n");
+    printf(" ──────────────────────────────────────────────────╔═╝║───────────────────╔═╝║\n");
+    printf(" ──────────────────────────────────────────────────╚══╝───────────────────╚══╝\n");
     return 0;
 }
